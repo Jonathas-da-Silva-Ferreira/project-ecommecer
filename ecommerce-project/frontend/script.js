@@ -18,7 +18,7 @@ async function loadProducts() {
             </td>
         </tr>
    `;
- })
+ });
 }
 
 // Create Products
@@ -26,4 +26,23 @@ document.getElementById("productForm").addEventListener("submit", async (e) =>{
     e.preventDefault();
     const name = document.getElementById("name").value;
     const price = dococument.getElementById("price").value;
-})
+
+
+    await fetch(API_URL,{
+        method: "POST",
+        headers:{"Content-Type":"application/json"},
+        body: JSON.stringify({name, price})
+    });
+
+    document.getElementById("productForm").reset();
+    loadProducts();
+});
+
+// Delete Product
+async function deleteProduct(id){
+    await fetch(`${API_URL}${id}/delete/`,{method:"DELETE"});
+    loadProducts();    
+}
+
+// Initial Load
+loadProducts();
