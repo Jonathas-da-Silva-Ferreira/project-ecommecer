@@ -24,17 +24,27 @@ async function loadProducts() {
 // Create Products
 document.getElementById("productForm").addEventListener("submit", async (e) =>{
     e.preventDefault();
+    const id = document.getElementById("id").value;
     const name = document.getElementById("name").value;
     const price = dococument.getElementById("price").value;
 
-
-    await fetch(API_URL,{
-        method: "POST",
-        headers:{"Content-Type":"application/json"},
-        body: JSON.stringify({name, price})
-    });
-
-    document.getElementById("productForm").reset();
+    if(id){
+        // Update (POST)
+        await fetch(`${API_URL}${id}/update/`,{
+            method: "POST",
+            headers:{"Content-Type": "application/json"},
+            body: JSON.stringify({name, price})
+        });
+    }else{
+        // CREATE (PUT)
+        await fetch(API_URL, {
+            method: "PUT",
+            headers:{"Content_Type": "application/json"},
+            body: JSON.stringify({name, price})
+        });
+    
+}
+    resetForm();
     loadProducts();
 });
 
@@ -43,6 +53,17 @@ async function deleteProduct(id){
     await fetch(`${API_URL}${id}/delete/`,{method:"DELETE"});
     loadProducts();    
 }
+
+// Prepare edition (fill in the form)
+function editProduct(id, name, price){
+    document.getElementById("id").value = id;
+    document.getElementById("name").value = name;
+    document.getElementById("price").value = price;
+    document.querySelector("button[type=submit]").innerText = "Atualizar Produto";
+    document.getElementById("cancelEdit").style.display= "inline";
+}
+
+
 
 // Initial Load
 loadProducts();
