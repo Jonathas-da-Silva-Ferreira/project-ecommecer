@@ -56,18 +56,18 @@ async function deleteProduct(id){
 
 // Prepare edition (fill in the form)
 function editProduct(id, name, price){
-    document.getElementById("id").value = id;
+    document.getElementById("productId").value = id;  
     document.getElementById("name").value = name;
     document.getElementById("price").value = price;
     document.querySelector("button[type=submit]").innerText = "Atualizar Produto";
-    document.getElementById("cancelEdit").style.display= "inline";
+    document.getElementById("cancelEdit").style.display= "inline-block";
 }
 
 // Cancel edition
 document.getElementById("cancelEdit").addEventListener("click", resetForm);
 
 function resetForm(){
-    document.getElementById("productID").value = "";
+    document.getElementById("productId").value = "";
     document.getElementById("productForm").reset();
     document.querySelector("button[type=submit]").innerText = "Adicionar Produto";
     document.getElementById("cancelEdit").style.display = "none";
