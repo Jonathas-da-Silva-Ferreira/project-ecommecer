@@ -63,7 +63,14 @@ function editProduct(id, name, price){
     document.getElementById("cancelEdit").style.display= "inline";
 }
 
+// Cancel edition
+document.getElementById("cancelEdit").addEventListener("click", resetForm);
 
-
+function resetForm(){
+    document.getElementById("productID").value = "";
+    document.getElementById("productForm").reset();
+    document.querySelector("button[type=submit]").innerText = "Adicionar Produto";
+    document.getElementById("cancelEdit").style.display = "none";
+}
 // Initial Load
 loadProducts();
